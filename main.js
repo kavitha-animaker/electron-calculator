@@ -1,6 +1,5 @@
 const { app, BrowserWindow, ipcMain, Notification } = require('electron');
 const path = require('path');
-const isDev = require('electron-is-dev');
 
 function createWindow() {
     const win = new BrowserWindow({
@@ -14,11 +13,7 @@ function createWindow() {
             preload: path.join(__dirname, 'preload.js')
         }
     })
-    win.loadURL(
-        isDev
-        ? 'http://localhost:3000'
-        :`file://${path.join(__dirname,'./index.html')}`
-    )
+    win.loadFile('index.html')
 }
 
 ipcMain.on('notify', (_, message) => {
